@@ -1,3 +1,8 @@
+/*
+Server.js 
+
+*/
+
 const express = require('express');
 
 const sequelize = require('./config/database');
