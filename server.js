@@ -8,6 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/category', require('./routes/categoryRoute'));
+app.use('/item', require('./routes/itemRoutes'));
 
 Item.belongsTo(Category, { constraints: true, onDelete: 'CASCADE' });
 sequelize
