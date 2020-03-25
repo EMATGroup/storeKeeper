@@ -10,8 +10,10 @@ CodeBy: @Ehab
 DocumentedBy; @Mohd
 */
 const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv');
+dotenv.config();
 
-module.exports = new Sequelize('oilstock', 'ehab', 'Ehab_1982', {
+module.exports = new Sequelize('oilstock', process.env.DBUSERNAME, process.env.DBPASSWORD, {
   host: 'localhost',
   dialect: 'mysql',
   pool: {
