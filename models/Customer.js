@@ -2,37 +2,37 @@ const Sequelize = require('sequelize');
 const db = require('../config/database');
 
 
-const Supplier = db.define('supplier', {
+const Customer = db.define('customer', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  supplierName: {
+  customerName: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  supplierPhone: {
+  customerPhone: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  supplierMobile: {
+  customerMobile: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  supplierFax: {
+  customerFax: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  supplierEmail: {
+  customerEmail: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  supplierAddress: {
+  customerAddress: {
     type: Sequelize.STRING,
     allowNull: false
   },
 });
 
-module.exports = Supplier;
+module.exports = Customer;
