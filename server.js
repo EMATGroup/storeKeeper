@@ -1,21 +1,20 @@
 /*
-Server.js 
+Server.js
 
 */
 
 const express = require('express');
 
 const sequelize = require('./config/database');
-const Category = require('./models/Category');
-const Item = require('./models/Item');
 
 const app = express();
 app.use(express.json());
 
-app.use('/category', require('./routes/categoryRoute'));
-app.use('/item', require('./routes/itemRoutes'));
+require('./startup/routes')(app);
 
-Item.belongsTo(Category, { constraints: true, onDelete: 'CASCADE' });
+
+
+
 sequelize
   .authenticate()
   .then(() => console.log('Database connected .. '))

@@ -1,9 +1,9 @@
-/* 
-Database.js 
+/*
+Database.js
 Connection to the Oilstock database ..
 Based on MySQL
 Using Sequelize Method..
-Database server: Localhost 
+Database server: Localhost
 Database Name: oilstock
 .....
 CodeBy: @Ehab
@@ -11,7 +11,8 @@ DocumentedBy; @Mohd
 */
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
-dotenv.config();
+
+dotenv.config({ path: './config/config.env' });
 
 module.exports = new Sequelize('oilstock', process.env.DBUSERNAME, process.env.DBPASSWORD, {
   host: 'localhost',

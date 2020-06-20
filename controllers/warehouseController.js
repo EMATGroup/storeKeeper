@@ -1,10 +1,10 @@
 const {sequelize, Op} = require('../config/database');
-const Category = require('../models/Category');
+const Warehouse = require('../models/Warehouse');
 
 exports.add = async (req, res) => {
   try {
-    const category = await Category.create(req.body);
-    return res.status(200).json(category);
+    const warehouse = await Warehouse.create(req.body);
+    return res.status(200).json(warehouse);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -12,8 +12,8 @@ exports.add = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   try {
-    const categories = await Category.findAll({});
-    return res.status(200).json(categories);
+    const Warehouses = await Warehouse.findAll({});
+    return res.status(200).json(Warehouses);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -23,29 +23,30 @@ exports.update = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [updated] = await Category.update(req.body, {
+    const [updated] = await Warehouse.update(req.body, {
       where: { id: id }
     });
 
     if (updated) {
-      const updatedCategory = await Category.findOne({
+      const updatedWarehouse = await Warehouse.findOne({
         where: { id: id }
       });
-      return res.status(200).json({ category: updatedCategory });
+      return res.status(200).json({ warehouse: updatedWarehouse });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
 
+
 exports.findById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await Category.findOne({
+    const warehouse = await Warehouse.findOne({
       where: { id: id }
     });
-    if (category) {
-      return res.status(200).json(category);
+    if (warehouse) {
+      return res.status(200).json(warehouse);
     }
     return res.status(404).json('Data does not exists');
   } catch (error) {
@@ -56,11 +57,11 @@ exports.findById = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Category.destroy({
+    const deleted = await Warehouse.destroy({
       where: { id: id }
     });
     if (deleted) {
-      return res.status(204).send('Category deleted');
+      return res.status(204).send('Warehouse deleted');
     }
 
   } catch (error) {

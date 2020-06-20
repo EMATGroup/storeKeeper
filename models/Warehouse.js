@@ -1,17 +1,17 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Category = db.define('category', {
+const Warehouse = db.define('warehouse', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true
   },
-  categoryName: {
+  warehouseName: {
     type: Sequelize.STRING,
     allowNull: false
-  },
+  }
 });
 
-module.exports = Category;
+module.exports = Warehouse;

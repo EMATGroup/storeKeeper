@@ -1,10 +1,10 @@
 const {sequelize, Op} = require('../config/database');
-const Category = require('../models/Category');
+const Supplier = require('../models/Supplier');
 
 exports.add = async (req, res) => {
   try {
-    const category = await Category.create(req.body);
-    return res.status(200).json(category);
+    const supplier = await Supplier.create(req.body);
+    return res.status(200).json(supplier);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -12,8 +12,8 @@ exports.add = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   try {
-    const categories = await Category.findAll({});
-    return res.status(200).json(categories);
+    const suppliers = await Supplier.findAll({});
+    return res.status(200).json(suppliers);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -23,15 +23,15 @@ exports.update = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [updated] = await Category.update(req.body, {
+    const [updated] = await Supplier.update(req.body, {
       where: { id: id }
     });
 
     if (updated) {
-      const updatedCategory = await Category.findOne({
+      const updatedSupplier = await Supplier.findOne({
         where: { id: id }
       });
-      return res.status(200).json({ category: updatedCategory });
+      return res.status(200).json({ supplier: updatedSupplier });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -41,11 +41,11 @@ exports.update = async (req, res) => {
 exports.findById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await Category.findOne({
+    const supplier = await Supplier.findOne({
       where: { id: id }
     });
-    if (category) {
-      return res.status(200).json(category);
+    if (supplier) {
+      return res.status(200).json(supplier);
     }
     return res.status(404).json('Data does not exists');
   } catch (error) {
@@ -56,11 +56,11 @@ exports.findById = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Category.destroy({
+    const deleted = await Supplier.destroy({
       where: { id: id }
     });
     if (deleted) {
-      return res.status(204).send('Category deleted');
+      return res.status(204).send('Supplier deleted');
     }
 
   } catch (error) {

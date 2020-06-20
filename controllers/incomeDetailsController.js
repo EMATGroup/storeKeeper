@@ -1,12 +1,12 @@
 const {sequelize, Op} = require('../config/database');
+const IncomingDetails = require('../models/IncomingDetails');
 const Item = require('../models/Item');
-const Category = require('../models/Category');
-const Supplier = require('../models/Supplier');
+const Warehouse = require('../models/Warehouse');
 
 exports.add = async (req, res) => {
   try {
-    const item = await Item.create(req.body);
-    return res.status(200).json(item);
+    const incomingDetails = await IncomingDetails.create(req.body);
+    return res.status(200).json(incomingDetails);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -14,10 +14,10 @@ exports.add = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   try {
-    const items = await Item.findAll({
-      include: [Category,Supplier],
+    const incomingDetailss = await IncomingDetails.findAll({
+      include: [Item,Warehouse],
     });
-    return res.status(200).json(items);
+    return res.status(200).json(incomingDetailss);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -27,16 +27,16 @@ exports.update = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const [updated] = await Item.update(req.body, {
+    const [updated] = await IncomingDetails.update(req.body, {
       where: { id: id }
     });
 
     if (updated) {
-      const updatedItem = await Item.findOne({
+      const incomingDetails = await IncomingDetails.findOne({
         where: { id: id },
-        include: [Category,Supplier]
+        include: [Item,Warehouse]
       });
-      return res.status(200).json({ item: updatedItem });
+      return res.status(200).json({ incomingDetails: incomingDetails });
     }
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -46,12 +46,12 @@ exports.update = async (req, res) => {
 exports.findById = async (req, res) => {
   try {
     const { id } = req.params;
-    const item = await Item.findOne({
+    const incomingDetails = await IncomingDetails.findOne({
       where: { id: id },
-      include: [Category,Supplier]
+      include: [Item,Warehouse]
     });
-    if (item) {
-      return res.status(200).json(item);
+    if (incomingDetails) {
+      return res.status(200).json(incomingDetails);
     }
     return res.status(404).json('Data does not exists');
   } catch (error) {
@@ -59,16 +59,15 @@ exports.findById = async (req, res) => {
   }
 };
 
-
-exports.findByCategoryId = async (req, res) => {
+exports.findByWarehouseId = async (req, res) => {
   try {
-    const { categoryId } = req.params;
-    const item = await Item.findAll({
-      where: { categoryId: categoryId },
-      include: [Category,Supplier]
+    const { warehouseId } = req.params;
+    const incomingDetails = await IncomingDetails.findAll({
+      where: { warehouseId: warehouseId },
+      include: [Item,Warehouse]
     });
-    if (item) {
-      return res.status(200).json(item);
+    if (incomingDetails) {
+      return res.status(200).json(incomingDetails);
     }
     return res.status(404).json('Data does not exists');
   } catch (error) {
@@ -79,7 +78,7 @@ exports.findByCategoryId = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Item.destroy({
+    const deleted = await IncomingDetails.destroy({
       where: { id: id }
     });
     if (deleted) {
